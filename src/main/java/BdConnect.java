@@ -1,19 +1,20 @@
 import java.sql.*;
 
 public class BdConnect {
-    static String firstName = "Иван";
-    static String lastName = "Иванов";
-    static String age = "25";
-    static String phone = "79998887779";
 
     public static void main(String[] args) {
+        String firstName = "Иван";
+        String phone = "79998887779";
+        String age = "25";
+        String lastName = "Иванов";
+
         BdConnect bdConnect = new BdConnect();
         bdConnect.connection();
-        bdConnect.insert(firstName,  lastName, age, phone);
+        bdConnect.insert(firstName, lastName, age, phone);
         bdConnect.selectMyUser(firstName, lastName, age, phone);
     }
 
-    public Connection connection() { // подключаемся к бд
+    private Connection connection() { // подключаемся к бд
         Connection con = null;
         try {
             String url = "jdbc:mysql://db4free.net:3306/dexautomation";
@@ -27,7 +28,7 @@ public class BdConnect {
         return con;
     }
 
-    public void insert(String firstName, String lastName, String age, String phone) { // добавляем запись в таблицу
+    private void insert(String firstName, String lastName, String age, String phone) { // добавляем запись в таблицу
         String sql = "INSERT INTO Students(firstName, lastName, age, phone) VALUES(?,?,?,?)";
         try {
             Connection conn = this.connection();
@@ -47,7 +48,7 @@ public class BdConnect {
         }
     }
 
-    public void selectMyUser(String firstName, String lastName, String age, String phone){ // проверяем наличие записи в таблице
+    private void selectMyUser(String firstName, String lastName, String age, String phone){ // проверяем наличие записи в таблице
         String sql = "SELECT * FROM Students WHERE firstName = ? AND lastName = ? AND age = ? AND phone = ?";
 
         try {
